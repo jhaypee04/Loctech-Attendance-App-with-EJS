@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        .hidden{
+            display:none;
+        }
+        td{
+            border: 1px solid dimgrey;
+            padding: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <div class="showOrHide">
+        <p>Welcome uzomzii </p>
+        <a href="/homepage">Classroom Galeria</a>
+        <br>
+        <a href="/createNewClassroom">New Classroom</a>
+        <br>
+        <a href="/logout">Logout</a>
+        <br>
+    </div>
+    <br>
+    <!-- ClassName: -->
+    <h1>Class name: <%= className %></h1>
+    <h1>Module form</h1>
+    <form action="/insertModule" method="post">
+        <label>
+            Please select a week
+            <select name="weekNo">
+                <option value="1">Week 1</option>
+                <option value="2">Week 2</option>
+                <option value="3">Week 3</option>
+                <option value="4">Week 4</option>
+                <option value="5">Week 5</option>
+                <option value="6">Week 6</option>
+                <option value="7">Week 7</option>
+            </select>
+        </label>
+        <br>
+        <label>
+            Please select the Day of Module
+            <select name="dayOfModule">
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+            </select>
+        </label>
+        <br>
+        <label>
+            Please insert the module title:
+            <input type="text" name="titleOfModule">
+        </label>
+        <br>
+        <label class="hidden">
+            Hidden input
+            <input type="hidden" name="className" value="<%= className %>" >
+        </label>
+        <br>
+        <input type="submit">
+    </form>
+
+    <h1>Mark Attendance</h1>
+    <form action="/markAttendance" method="post">
+
+        <span>
+            Students:
+            <input type="checkbox" name="checkedName" value="Michael">
+            Michael
+            <input type="checkbox" name="checkedName" value="Chisom">
+            Chisom
+            <input type="checkbox" name="checkedName" value="Wilson">
+            Wilson
+        </span>
+        <br>
+        <label>
+            Status:
+            <input type="radio" name="status" value="true">
+            Present
+            <input type="radio" name="status" value="false">
+            Absent
+        </label>
+        <br>
+        <label>
+            Please select the Day of Attendance:
+            <select name="dayOfAttendance">
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+            </select>
+        </label>
+        <br>
+        <label class="hidden">
+            Hidden input
+            <input type="hidden" name="className" value="<%= className %>" >
+        </label>
+        <br>
+        <input type="submit">
+    </form>
+
+    <h1>Insert New Student</h1>
+    <form action="/insertNewStudent" method="post">
+        <label>
+            Student Name:
+            <input type="text" name="studentName">
+        </label>
+        <br>
+        <label>
+            Student Email:
+            <input type="email" name="studentEmail">
+        </label>
+        <br>
+        <label>
+            Parent Name:
+            <input type="text" name="parentEmail">
+        </label>
+        <br>
+        <label>
+            Parent Phone Number:
+            <input type="number" name="parentPhoneNo">
+        </label>
+        <br>
+        <label>
+            Student Phone Number:
+            <input type="number" name="studentPhoneNo">
+        </label>
+        <br>
+        <label>
+            Gender:
+            <input type="radio" name="gender" value="male">
+            Male
+            <input type="radio" name="gender" value="female">
+            Female
+        </label>
+        <br>
+        <label>
+            Date of Birth:
+            <input type="date" name="dob">
+        </label>
+        <br>
+        <br>
+        <label class="hidden">
+            Hidden input
+            <input type="hidden" name="className" value="<%= className %>" >
+        </label>
+        <br>
+        <input type="submit">
+    </form>
+
+    <h1>Modules Register</h1>
+    <table>
+        <tr>
+            <td>weeks</td>
+            <% weeks.forEach(element => { %>
+                <td>
+                    <p><%=element.dayOfModule  %> </p>
+                </td>
+            <% }) %>
+        </tr>
+        <tr>
+            <td>week 1</td>
+            <% weeks.forEach(element => { %>
+                <td>
+                    <p><%=element.titleOfModule  %> </p>
+                </td>
+                <% }) %>
+            </tr>
+        </table>
+    <h1>Students Register</h1>
+</body>
+</html>

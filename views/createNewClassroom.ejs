@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create new Classroom</title>
+</head>
+<body>
+    <h1>Create New Classroom</h1>
+    <div class="showOrHide">
+        <p>Welcome Mr Uzomzii</p>
+        <a href="/homepage">Classroom Galeria</a>
+        <br>
+        <a href="/logout">Logout</a>
+        <br>
+    </div>
+    <form action="/createNewClassroom" method="post">
+        <label>
+            Class Name:
+            <input type="text" name="className">
+        </label>
+        <br>
+        <span>
+            Class Days:
+            <input type="checkbox" name="classDays" value="monday">
+            Monday
+            <input type="checkbox" name="classDays" value="tuesday">
+            Tuesday
+            <input type="checkbox" name="classDays" value="wednesday">
+            Wednesday
+            <input type="checkbox" name="classDays" value="thurday">
+            Thursday
+            <input type="checkbox" name="classDays" value="friday">
+            Friday
+            <input type="checkbox" name="classDays" value="saturday">
+            Saturday
+            <input type="checkbox" name="classDays" value="sunday">
+            Sunday
+        </span>
+        <br>
+        <label>
+            Number of Weeks:
+            <input type="number" name="numberOfWeeks">
+        </label>
+        <br>
+        <br>
+        <input type="submit">
+    </form>
+</body>
+</html>

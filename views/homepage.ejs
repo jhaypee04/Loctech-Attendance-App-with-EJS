@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes Galeria</title>
+</head>
+<body>
+    <h1>Classroom Galery</h1>
+    <div class="showOrHide">
+        <p>Welcome <%= instructorName %>  </p>
+        <a href="/homepage">Classroom Galeria</a>
+        <br>
+        <a href="/createNewClassroom">New Classroom</a>
+        <br>
+        <a href="/logout">Logout</a>
+        <br>
+    </div>
+    <br>
+    <div class="container">
+        <% className.forEach(element => { %>
+         <div class="cards">
+            <!-- params -->
+            <a href="<%= `/dashboard/${element.className}` %>">
+                <%= element.className %> 
+            </a>
+         </div>
+        <% }) %>
+    </div>
+</body>
+</html>
