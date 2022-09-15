@@ -62,19 +62,21 @@ app.get('/dashboard/:className', protectRoute, async (req, res)=>{
     const InstructorEmailFromPayLoadOfJWT = req.user.instructor.email
     console.log(InstructorEmailFromPayLoadOfJWT)
                     // Read operations
-    // const getStudents = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'students')
-    // const getAttendance = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'attendances')
-    // const getInstructor = await getOnlyInstructors(InstructorEmailFromPayLoadOfJWT)
     const getClassrooms = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'classrooms')
     // Accessing Weeks from classroom collection by read and populate
     const weeksDoc = await getClassroom(className, 'weeks')
     // Accessing instructorName from classroom collection
     const instructorName = getClassrooms.instructorName
     const classrooms = getClassrooms.classrooms
-    console.log("classrooms: "+classrooms)
-    console.log("weeks: "+weeksDoc.weeks)
+    const w = weeksDoc.weeks
+    // Looping throught the weeks collection
+    const dayOfModule = w.map(e=> e.dayOfModule)
+    const titleOfModule = w.map(e=> e.titleOfModule)
+    const weekNo = w.map(e=> e.weekNo)
+    console.log("weekNo: "+ weekNo)
+    console.log("titleOfModule: "+ titleOfModule)
 
-    res.render('dashboard', {className,instructorName,classrooms,weeks:weeksDoc.weeks})
+    res.render('dashboard', {className,instructorName,classrooms,dayOfModule,titleOfModule,weekNo})
 })
 // Forbidden route
 // app.get('/dashboard', protectRoute, async(req, res)=>{})

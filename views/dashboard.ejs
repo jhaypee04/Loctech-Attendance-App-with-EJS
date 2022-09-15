@@ -178,19 +178,19 @@
                     Number of Weeks: <%= element.numberOfWeeks %>
                     <% for( let index = 0; index < element.numberOfWeeks; index++ ) { %>
                     <tr>
-                        
                         <td>week <%= index +1 %>  </td>
-                        <% var weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %> 
-                        <% weekDays.forEach(( element, index )=> { %>
+
+                        <% var weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %>
+
+                        <% for( let i = 0; i < 7; i++ ) { %>
                             <td>
-                                <% weeks.forEach(element => { %>
-                                    <% if ( weekDays[index] == element.dayOfModule ) { %>
-                                            <%= element.titleOfModule %> 
-                                        <% } %>
-                                <% }) %>
-                                
+                                <% if (weekNo[i] == index+1) { %>
+                                    <%= titleOfModule[i] %> 
+                                <% } %>
                             </td>
-                        <% }) %>
+                                        
+                        <% } %>
+
                     </tr>
                     <% } %>
                 <% } %>
