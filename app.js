@@ -64,15 +64,17 @@ app.get('/dashboard/:className', protectRoute, async (req, res)=>{
                     // Read operations
     // const getStudents = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'students')
     // const getAttendance = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'attendances')
+    // const getInstructor = await getOnlyInstructors(InstructorEmailFromPayLoadOfJWT)
     const getClassrooms = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'classrooms')
     // Accessing Weeks from classroom collection by read and populate
     const weeksDoc = await getClassroom(className, 'weeks')
     // Accessing instructorName from classroom collection
     const instructorName = getClassrooms.instructorName
-    console.log("className: "+className)
+    const classrooms = getClassrooms.classrooms
+    console.log("classrooms: "+classrooms)
     console.log("weeks: "+weeksDoc.weeks)
 
-    res.render('dashboard', {className,instructorName,weeks:weeksDoc.weeks})
+    res.render('dashboard', {className,instructorName,classrooms,weeks:weeksDoc.weeks})
 })
 // Forbidden route
 // app.get('/dashboard', protectRoute, async(req, res)=>{})
@@ -328,6 +330,17 @@ const saveToStudent = async function(studentName,studentEmail,parentEmail,parent
     })
     console.log("\n>>Created Student:\n", Student)
     return Student
+}
+
+// Read only operation
+function getOnlyInstructors(instructorEmail){
+    return db.Instructors.findOne({instructorEmail})
+    .then((instructor)=>{
+        // console.log("result: "+instructor)
+        return instructor
+    }).catch((err)=>{
+        console.log("err: "+err)
+    })
 }
 
 // Read and Update Operation

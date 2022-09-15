@@ -162,24 +162,44 @@
     </form>
 
     <h1>Modules Register</h1>
-    <table>
-        <tr>
-            <td>weeks</td>
-            <% weeks.forEach(element => { %>
-                <td>
-                    <p><%=element.dayOfModule  %> </p>
-                </td>
-            <% }) %>
-        </tr>
-        <tr>
-            <td>week 1</td>
-            <% weeks.forEach(element => { %>
-                <td>
-                    <p><%=element.titleOfModule  %> </p>
-                </td>
-                <% }) %>
+        <table>
+            <tr>
+                <td>weeks</td>
+                <td>Monday</td>
+                <td>Tuesday</td>
+                <td>Wednesday</td>
+                <td>Thursday</td>
+                <td>Friday</td>
+                <td>Saturday</td>
+                <td>Sunday</td>
             </tr>
+            <% classrooms.forEach(element => { %>
+                <% if (element.className == className) { %>
+                    Number of Weeks: <%= element.numberOfWeeks %>
+                    <% for( let index = 0; index < element.numberOfWeeks; index++ ) { %>
+                    <tr>
+                        
+                        <td>week <%= index +1 %>  </td>
+                        <% var weekDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %> 
+                        <% weekDays.forEach(( element, index )=> { %>
+                            <td>
+                                <% weeks.forEach(element => { %>
+                                    <% if ( weekDays[index] == element.dayOfModule ) { %>
+                                            <%= element.titleOfModule %> 
+                                        <% } %>
+                                <% }) %>
+                                
+                            </td>
+                        <% }) %>
+                    </tr>
+                    <% } %>
+                <% } %>
+            <% }) %>
         </table>
+        <div class="outer">
+            <span class="inner"></span>
+        </div>
+        
     <h1>Students Register</h1>
 </body>
 </html>
