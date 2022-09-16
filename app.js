@@ -85,7 +85,7 @@ app.get('/dashboard/:className', protectRoute, async (req, res)=>{
 
     const classDays = cD.split(',')
     
-    console.log(cD, 'ddsddddddddddddd')
+    console.log(classDays, 'ddsddddddddddddd')
     // Looping throught the weeks collection
     const dayOfModule = w.map(e=> e.dayOfModule)
     const titleOfModule = w.map(e=> e.titleOfModule)

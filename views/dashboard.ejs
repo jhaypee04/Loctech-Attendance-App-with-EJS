@@ -179,13 +179,16 @@
             <% for( let index = 0; index < numberOfWeeks; index++ ) { %>
             <tr>
 
-                <% for( let i = 0; i < index+1; i++ ) { %>
+                <% for( let i = 0; i < 60; i++ ) { %>
                     <%if(i===0){%>
                         <td>week <%= index +1 %>  </td>
                     <%}%>
-                    <td>
-                        <%=titleOfModule[i]%> 
-                    </td>
+                    <% if (weekNo[i] == index+1 ) { %>
+                        <td>
+                            <%=titleOfModule[i]%> 
+                         
+                        </td>
+                    <% } %>
                 <% } %>
             </tr>
             <% } %>
