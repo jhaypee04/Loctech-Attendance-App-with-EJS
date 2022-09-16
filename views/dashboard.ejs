@@ -161,44 +161,35 @@
         <input type="submit">
     </form>
 
+
     <h1>Modules Register</h1>
         <table>
             <tr>
                 <td>weeks</td>
-                <% classrooms.forEach(el => { %>
-                    <% if (el.className == className) { %>
-                        Class days: <%= el.classDays %> <br>
-                        <% var daysNo= el.classDays %> 
-                        <% for( let j = 0; j < daysNo.length; j++ ) { %>
-                            <td>
-                                <%= daysNo[j] %> 
-                            </td>
-                        <% } %>
-                    <% } %>
-                <% }) %>
+                <% for( let j = 0; j < classDays.length; j++ ) { %>
+                    <td>
+                        <%= classDays[j] %> 
+                    </td>
+                <% } %>
             </tr>
 
-            <% classrooms.forEach(element => { %>
-                <% if (element.className == className) { %>
-                    Number of Weeks: <%= element.numberOfWeeks %>
-                    <% var days_No = element.classDays %>
-                    <% for( let index = 0; index < element.numberOfWeeks; index++ ) { %>
-                    <tr>
+
+            
+                
+            <% for( let index = 0; index < numberOfWeeks; index++ ) { %>
+            <tr>
+
+                <% for( let i = 0; i < index+1; i++ ) { %>
+                    <%if(i===0){%>
                         <td>week <%= index +1 %>  </td>
-
-                        <% for( let i = 0; i < 7; i++ ) { %>
-                            <td>
-                                <% if (weekNo[i] == index+1) { %>
-                                    <%= titleOfModule[i] %> 
-                                <% } %>
-                            </td>
-                                        
-                        <% } %>
-
-                    </tr>
-                    <% } %>
+                    <%}%>
+                    <td>
+                        <%=titleOfModule[i]%> 
+                    </td>
                 <% } %>
-            <% }) %>
+            </tr>
+            <% } %>
+
         </table>
         <div class="outer">
             <span class="inner"></span>

@@ -65,10 +65,27 @@ app.get('/dashboard/:className', protectRoute, async (req, res)=>{
     const getClassrooms = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'classrooms')
     // Accessing Weeks from classroom collection by read and populate
     const weeksDoc = await getClassroom(className, 'weeks')
+    const w = weeksDoc.weeks
     // Accessing instructorName from classroom collection
     const instructorName = getClassrooms.instructorName
     const classrooms = getClassrooms.classrooms
-    const w = weeksDoc.weeks
+    const largestWeek = 2
+    console.log(largestWeek,'gggggggg')
+    // Looping throught the classroom collection
+    const classNames = classrooms.map(e=>e.className)
+    const classroom = classrooms.filter(e=>{
+        if(e.className === className){
+            return e
+        }
+    })
+    const numberOfWeeksFromDB = classroom.map(e=>e.numberOfWeeks)
+    const numberOfWeeks = parseInt(numberOfWeeksFromDB.join())
+    const classDaysFromDB = classroom.map(e=>e.classDays)
+    const cD = classDaysFromDB.join()
+
+    const classDays = cD.split(',')
+    
+    console.log(cD, 'ddsddddddddddddd')
     // Looping throught the weeks collection
     const dayOfModule = w.map(e=> e.dayOfModule)
     const titleOfModule = w.map(e=> e.titleOfModule)
@@ -76,7 +93,7 @@ app.get('/dashboard/:className', protectRoute, async (req, res)=>{
     console.log("weekNo: "+ weekNo)
     console.log("titleOfModule: "+ titleOfModule)
 
-    res.render('dashboard', {className,instructorName,classrooms,dayOfModule,titleOfModule,weekNo})
+    res.render('dashboard', {instructorName,className,classDays,numberOfWeeks,dayOfModule,titleOfModule,weekNo})
 })
 // Forbidden route
 // app.get('/dashboard', protectRoute, async(req, res)=>{})
