@@ -199,5 +199,70 @@
         </div>
         
     <h1>Students Register</h1>
+        <table>
+            <tr>
+                <td>S/N</td>
+                <td>Student Name</td>
+                <td>Student Email</td>
+                <td>Parent Email</td>
+                <td>Parent Phone No.</td>
+                <td>Student Phone No.</td>
+                <td>Gender</td>
+                <td>Date of Birth</td>
+            </tr>
+            
+            <% for( let i = 0; i < studentName.length; i++ ) { %>
+                <tr>
+                    <td><%= i +1 %>  </td>
+                   <% for( let j = 0; j < 7; j++ ) { %>
+                        
+                        <% if ( studentName.indexOf(studentName[j]) == i ) { %>
+                            <td>
+                                <%= studentName[j]  %> 
+                            </td>
+                        <% } %>
+                        
+                        <% if ( studentName.indexOf(studentName[j]) == i ) { %>
+                            <td>
+                                <%= studentEmail[j]  %> 
+                            </td>
+                        <% } %>
+                        
+                        <% if ( studentName.indexOf(studentName[j]) == i ) { %>
+                            <td>
+                                <%= parentEmail[j]  %> 
+                            </td>
+                        <% } %>
+                        
+                        <% if ( studentName.indexOf(studentName[j]) == i ) { %>
+                            <td>
+                                <%= parentPhoneNo[j]  %> 
+                            </td>
+                        <% } %>
+                        
+                        <% if ( studentName.indexOf(studentName[j]) == i ) { %>
+                            <td>
+                                <%= studentPhoneNo[j]  %> 
+                            </td>
+                        <% } %>
+                        
+                        <% if ( studentName.indexOf(studentName[j]) == i ) { %>
+                            <td>
+                                <%= gender[j]  %> 
+                            </td>
+                        <% } %>
+                        
+                        <% if ( studentName.indexOf(studentName[j]) == i ) { %>
+                            <td>
+                                <%= dob[j]  %> 
+                            </td>
+                        <% } %>
+
+                   <% } %>
+                </tr>
+            <% } %>
+        </table>
+
+    <h1>Attendance Register</h1>
 </body>
 </html>

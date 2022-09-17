@@ -57,43 +57,53 @@ app.get('/homepage', protectRoute, async(req, res)=>{
 
 app.get('/dashboard/:className', protectRoute, async (req, res)=>{
     const className = req.params.className
-    console.log(className, 'kkkkkkkkk')
-    // Email from payload of JWT
     const InstructorEmailFromPayLoadOfJWT = req.user.instructor.email
-    console.log(InstructorEmailFromPayLoadOfJWT)
-                    // Read operations
+                    // Read operations for Modules Register
     const getClassrooms = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'classrooms')
-    // Accessing Weeks from classroom collection by read and populate
     const weeksDoc = await getClassroom(className, 'weeks')
-    const w = weeksDoc.weeks
-    // Accessing instructorName from classroom collection
+    
     const instructorName = getClassrooms.instructorName
     const classrooms = getClassrooms.classrooms
-    const largestWeek = 2
-    console.log(largestWeek,'gggggggg')
-    // Looping throught the classroom collection
-    const classNames = classrooms.map(e=>e.className)
-    const classroom = classrooms.filter(e=>{
-        if(e.className === className){
-            return e
-        }
-    })
+    const classroom = classrooms.filter(e=>{if(e.className === className){return e}})
+    
     const numberOfWeeksFromDB = classroom.map(e=>e.numberOfWeeks)
     const numberOfWeeks = parseInt(numberOfWeeksFromDB.join())
+    
     const classDaysFromDB = classroom.map(e=>e.classDays)
     const cD = classDaysFromDB.join()
-
     const classDays = cD.split(',')
     
-    console.log(classDays, 'ddsddddddddddddd')
-    // Looping throught the weeks collection
+    const w = weeksDoc.weeks
     const dayOfModule = w.map(e=> e.dayOfModule)
     const titleOfModule = w.map(e=> e.titleOfModule)
     const weekNo = w.map(e=> e.weekNo)
-    console.log("weekNo: "+ weekNo)
-    console.log("titleOfModule: "+ titleOfModule)
 
-    res.render('dashboard', {instructorName,className,classDays,numberOfWeeks,dayOfModule,titleOfModule,weekNo})
+                    // Read operations for Student Register
+    const getStudents = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'students')
+    const students = getStudents.students
+    const student = students.filter(e=>{if(e.className === className){return e}})
+
+    const studentName = student.map(e=>e.studentName)
+    console.log('studentName',studentName)
+    const studentEmail = student.map(e=>e.studentEmail)
+    console.log('studentEmail',studentEmail)
+    const parentEmail = student.map(e=>e.parentEmail)
+    console.log('parentEmail',parentEmail)
+    const parentPhoneNo = student.map(e=>e.parentPhoneNo)
+    console.log('parentPhoneNo',parentPhoneNo)
+    const studentPhoneNo = student.map(e=>e.studentPhoneNo)
+    console.log('studentPhoneNo',studentPhoneNo)
+    const gender = student.map(e=>e.gender)
+    console.log('gender',gender)
+    const dob = student.map(e=>e.dob)
+    console.log('dob',dob)
+
+    res.render('dashboard', {
+        // Module Register
+        instructorName,className,classDays,numberOfWeeks,dayOfModule,titleOfModule,weekNo,
+        // Student Register
+        studentName,studentEmail,parentEmail,parentPhoneNo,studentPhoneNo,gender,dob
+    })
 })
 // Forbidden route
 // app.get('/dashboard', protectRoute, async(req, res)=>{})
