@@ -23,7 +23,7 @@ app.listen(port,()=>console.log('App connected and listening to port: ', port))
 app.set('view engine', 'ejs')
 
 // middlewares
-app.use('/assets', express.static('assets'))
+app.use('/public', express.static('public'))
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
