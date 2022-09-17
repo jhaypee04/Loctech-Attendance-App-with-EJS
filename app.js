@@ -58,62 +58,8 @@ app.get('/homepage', protectRoute, async(req, res)=>{
 app.get('/dashboard/:className', protectRoute, async (req, res)=>{
     const className = req.params.className
     const InstructorEmailFromPayLoadOfJWT = req.user.instructor.email
-                    // Read operations for Modules Register
-    const getClassrooms = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'classrooms')
-    const weeksDoc = await getClassroom(className, 'weeks')
-    
-    const instructorName = getClassrooms.instructorName
-    const classrooms = getClassrooms.classrooms
-    const classroom = classrooms.filter(e=>{if(e.className === className){return e}})
-    
-    const numberOfWeeksFromDB = classroom.map(e=>e.numberOfWeeks)
-    const numberOfWeeks = parseInt(numberOfWeeksFromDB.join())
-    
-    const classDaysFromDB = classroom.map(e=>e.classDays)
-    const cD = classDaysFromDB.join()
-    const classDays = cD.split(',')
-    
-    const w = weeksDoc.weeks
-    const dayOfModule = w.map(e=> e.dayOfModule)
-    const titleOfModule = w.map(e=> e.titleOfModule)
-    const weekNo = w.map(e=> e.weekNo)
-    
-    // Read operations for Student Register
-    const getStudents = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'students')
-    const students = getStudents.students
-    const student = students.filter(e=>{if(e.className === className){return e}})
-
-    const studentName = student.map(e=>e.studentName)
-    const studentEmail = student.map(e=>e.studentEmail)
-    const parentEmail = student.map(e=>e.parentEmail)
-    const parentPhoneNo = student.map(e=>e.parentPhoneNo)
-    const studentPhoneNo = student.map(e=>e.studentPhoneNo)
-    const gender = student.map(e=>e.gender)
-    const dob = student.map(e=>e.dob)
-
-                    // Read operations for Student Register
-    const getAttendances = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'attendances')
-    const attendances = getAttendances.attendances
-    const attendance = attendances.filter(e=>{if(e.className === className){return e}})
-    
-    const checkedNameFromDB = attendance.map(e=>e.checkedName)
-    const cN = checkedNameFromDB.join()
-    const checkedName = cN.split(',')
-    console.log('checkedName: ', checkedName)
-    const status = attendance.map(e=>e.status)
-    console.log('status: ', status)
-    const dayOfAttendance = attendance.map(e=>e.dayOfAttendance)
-    console.log('dayOfAttendance: ', dayOfAttendance)
-    console.log(studentName,'studentName')
-    
-    res.render('dashboard', {
-        // Module Register
-        instructorName,className,classDays,numberOfWeeks,dayOfModule,titleOfModule,weekNo,
-        // Student Register
-        studentName,studentEmail,parentEmail,parentPhoneNo,studentPhoneNo,gender,dob,
-        // Attendance Register
-        checkedName,status,dayOfAttendance
-    })
+    const data = await getDataForDashboard(InstructorEmailFromPayLoadOfJWT, className)
+    res.render('dashboard', data)
 })
 // Forbidden route
 // app.get('/dashboard', protectRoute, async(req, res)=>{})
@@ -200,10 +146,13 @@ app.post('/createNewClassroom', protectRoute, async (req, res)=>{
     res.redirect('homepage')
 })
 app.post('/insertModule', protectRoute, async (req, res)=>{
-    const weekNoFromUI = req.body.weekNo
-    const dayOfModuleFromUI = req.body.dayOfModule
-    const titleOfModuleFromUI = req.body.titleOfModule
+    const weekNoFromUI = req.body.wkNo
+    const dayOfModuleFromUI = req.body.dOM
+    const titleOfModuleFromUI = req.body.tOM
     const classNameFromUI = req.body.className
+    const className = classNameFromUI
+
+    console.log('weekNoFromUI',weekNoFromUI)
     // Persisting to db
     const SavedWeek = await saveToWeek(weekNoFromUI,dayOfModuleFromUI,titleOfModuleFromUI,classNameFromUI)
     // getting Weeks id
@@ -211,9 +160,8 @@ app.post('/insertModule', protectRoute, async (req, res)=>{
     option = {weeks: weekId}
     // Updating to Classroom collection
     findClassroomAndUpdate(classNameFromUI,option)
-    // className
-    const className = classNameFromUI
-    res.render('dashboard', {className})
+    
+    res.redirect(`/dashboard/${className}`)
 })
 app.post('/markAttendance', protectRoute, async (req, res)=>{
     const checkedNameFromUI = req.body.checkedName
@@ -497,4 +445,66 @@ function getStudent(className, collectionName){
     }).catch((err)=>{
         console.log("err: "+err)
     })
+}
+
+// return All Data
+const getDataForDashboard = async function (email, className){
+    // Read operations for Modules Register
+    const getClassrooms = await getInstructor(email, 'classrooms')
+    const weeksDoc = await getClassroom(className, 'weeks')
+
+    const instructorName = getClassrooms.instructorName
+    const classrooms = getClassrooms.classrooms
+    const classroom = classrooms.filter(e=>{if(e.className === className){return e}})
+
+    const numberOfWeeksFromDB = classroom.map(e=>e.numberOfWeeks)
+    const numberOfWeeks = parseInt(numberOfWeeksFromDB.join())
+
+    const classDaysFromDB = classroom.map(e=>e.classDays)
+    const cD = classDaysFromDB.join()
+    const classDays = cD.split(',')
+
+    const w = weeksDoc.weeks
+    const dayOfModule = w.map(e=> e.dayOfModule)
+    const titleOfModule = w.map(e=> e.titleOfModule)
+    const weekNo = w.map(e=> e.weekNo)
+
+    // Read operations for Student Register
+    const getStudents = await getInstructor(email, 'students')
+    const students = getStudents.students
+    const student = students.filter(e=>{if(e.className === className){return e}})
+
+    const studentName = student.map(e=>e.studentName)
+    const studentEmail = student.map(e=>e.studentEmail)
+    const parentEmail = student.map(e=>e.parentEmail)
+    const parentPhoneNo = student.map(e=>e.parentPhoneNo)
+    const studentPhoneNo = student.map(e=>e.studentPhoneNo)
+    const gender = student.map(e=>e.gender)
+    const dob = student.map(e=>e.dob)
+
+                    // Read operations for Student Register
+    const getAttendances = await getInstructor(email, 'attendances')
+    const attendances = getAttendances.attendances
+    const attendance = attendances.filter(e=>{if(e.className === className){return e}})
+
+    const checkedNameFromDB = attendance.map(e=>e.checkedName)
+    const cN = checkedNameFromDB.join()
+    const checkedName = cN.split(',')
+    console.log('checkedName: ', checkedName)
+    const status = attendance.map(e=>e.status)
+    console.log('status: ', status)
+    const dayOfAttendance = attendance.map(e=>e.dayOfAttendance)
+    console.log('dayOfAttendance: ', dayOfAttendance)
+    console.log(studentName,'studentName')
+
+    const data = {
+        // Module Register
+        instructorName,className,classDays,numberOfWeeks,dayOfModule,titleOfModule,weekNo,
+        // Student Register
+        studentName,studentEmail,parentEmail,parentPhoneNo,studentPhoneNo,gender,dob,
+        // Attendance Register
+        checkedName,status,dayOfAttendance
+    }
+
+    return data
 }

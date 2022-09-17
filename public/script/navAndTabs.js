@@ -23,27 +23,27 @@ navs.forEach((nav) => {
     })
 })
 
-// Accordion Code for Modules
-var week_x = document.querySelector('.day_and_module_header')
-var week_x_contianer = document.querySelector('.accordion_hidden')
+// // Accordion Code for Modules
+// var week_x = document.querySelector('.day_and_module_header')
+// var week_x_contianer = document.querySelector('.accordion_hidden')
 
-week_x.addEventListener('click', () => {
-    if(week_x_contianer.style.display == 'block'){
-        week_x_contianer.style.display = 'none'
-    } else {
-        week_x_contianer.style.display = 'block'
-    }
-} )
+// week_x.addEventListener('click', () => {
+//     if(week_x_contianer.style.display == 'block'){
+//         week_x_contianer.style.display = 'none'
+//     } else {
+//         week_x_contianer.style.display = 'block'
+//     }
+// } )
 
 
-// Accordion Code for Student
-var student_name = document.querySelector('.student_name')
-var student_details_contianer = document.querySelector('.accordion_hidden_student')
+// // Accordion Code for Student
+// var student_name = document.querySelector('.student_name')
+// var student_details_contianer = document.querySelector('.accordion_hidden_student')
 
-student_name.addEventListener('click', () => {
-    if(student_details_contianer.style.display == 'block'){
-        student_details_contianer.style.display = 'none'
-    } else {
-        student_details_contianer.style.display = 'block'
-    }
-} )
+// student_name.addEventListener('click', () => {
+//     if(student_details_contianer.style.display == 'block'){
+//         student_details_contianer.style.display = 'none'
+//     } else {
+//         student_details_contianer.style.display = 'block'
+//     }
+// } )
