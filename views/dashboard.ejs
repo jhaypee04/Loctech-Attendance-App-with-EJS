@@ -194,9 +194,6 @@
             <% } %>
 
         </table>
-        <div class="outer">
-            <span class="inner"></span>
-        </div>
         
     <h1>Students Register</h1>
         <table>
@@ -264,5 +261,34 @@
         </table>
 
     <h1>Attendance Register</h1>
+
+    <% for( let i = 0; i < numberOfWeeks; i++ ) { %>
+        <table>
+            <tr>
+                <th>
+                    Week <%= i+1 %> 
+                </th>
+            </tr>
+            <tr>
+                <td>S/N</td>
+                <td>Students</td>
+                <% for( let j = 0; j < classDays.length; j++ ) { %>
+                    <td><%= classDays[j] %></td> 
+                <% } %>
+            </tr>
+            <% for( let k = 0; k < studentName.length; k++ ) { %>
+                <tr>
+                    <td><%= k +1 %>  </td>
+                    <td><%= studentName[k] %> </td>
+                    
+                    <% for( let l = 0; l < classDays.length; l++ ) { %>
+                        
+                            <td><%= status[k]  %></td>
+                       
+                    <% } %>
+                </tr>
+            <% } %>
+        </table>
+    <% } %>
 </body>
 </html>

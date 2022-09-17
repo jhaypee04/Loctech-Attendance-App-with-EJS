@@ -77,32 +77,42 @@ app.get('/dashboard/:className', protectRoute, async (req, res)=>{
     const dayOfModule = w.map(e=> e.dayOfModule)
     const titleOfModule = w.map(e=> e.titleOfModule)
     const weekNo = w.map(e=> e.weekNo)
-
-                    // Read operations for Student Register
+    
+    // Read operations for Student Register
     const getStudents = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'students')
     const students = getStudents.students
     const student = students.filter(e=>{if(e.className === className){return e}})
 
     const studentName = student.map(e=>e.studentName)
-    console.log('studentName',studentName)
     const studentEmail = student.map(e=>e.studentEmail)
-    console.log('studentEmail',studentEmail)
     const parentEmail = student.map(e=>e.parentEmail)
-    console.log('parentEmail',parentEmail)
     const parentPhoneNo = student.map(e=>e.parentPhoneNo)
-    console.log('parentPhoneNo',parentPhoneNo)
     const studentPhoneNo = student.map(e=>e.studentPhoneNo)
-    console.log('studentPhoneNo',studentPhoneNo)
     const gender = student.map(e=>e.gender)
-    console.log('gender',gender)
     const dob = student.map(e=>e.dob)
-    console.log('dob',dob)
 
+                    // Read operations for Student Register
+    const getAttendances = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'attendances')
+    const attendances = getAttendances.attendances
+    const attendance = attendances.filter(e=>{if(e.className === className){return e}})
+    
+    const checkedNameFromDB = attendance.map(e=>e.checkedName)
+    const cN = checkedNameFromDB.join()
+    const checkedName = cN.split(',')
+    console.log('checkedName: ', checkedName)
+    const status = attendance.map(e=>e.status)
+    console.log('status: ', status)
+    const dayOfAttendance = attendance.map(e=>e.dayOfAttendance)
+    console.log('dayOfAttendance: ', dayOfAttendance)
+    console.log(studentName,'studentName')
+    
     res.render('dashboard', {
         // Module Register
         instructorName,className,classDays,numberOfWeeks,dayOfModule,titleOfModule,weekNo,
         // Student Register
-        studentName,studentEmail,parentEmail,parentPhoneNo,studentPhoneNo,gender,dob
+        studentName,studentEmail,parentEmail,parentPhoneNo,studentPhoneNo,gender,dob,
+        // Attendance Register
+        checkedName,status,dayOfAttendance
     })
 })
 // Forbidden route
