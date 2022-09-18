@@ -7,21 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing page</title>
     <link rel="stylesheet" href="public/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/styles/navAndTabs.css">
 </head>
-<body>
-    <nav class="bg-primary text-white py-2 px-1">
-        <h1>Loctech Attendance App</h1>
+<body class="bg-primary text-white">
+    <div class="container-fluid ">
+        <h1 class="text-center">Loctech Attendance App</h1>
 
-    </nav>
-    <div class="showOrHide">
-        <a href="/homepage">Classroom Galeria</a>
-        <br>
-        <a href="/logout">Logout</a>
-        <br>
+        <div class="showOrHide d-flex justify-content-between py-4 px-2" style="background-color: indigo;">
+            <div>
+                <a href="/homepage" class="text-decoration-none text-white">Classroom Galeria</a>
+            </div>
+            <div class="d-flex gap-2">
+
+                <!-- <a href="/logout" class="text-decoration-none text-white">Logout</a> -->
+                <a href="/register" class="text-decoration-none text-white">Register</a>
+                <a href="/login" class="text-decoration-none text-white">Login</a>
+            </div>
+        </div>
     </div>
-    <br>
-    <a href="/register">Register</a>
-    <br>
-    <a href="/login">Login</a>
+        
+    <script src="/public/script/menuHamburger.js"></script>
 </body>
 </html>

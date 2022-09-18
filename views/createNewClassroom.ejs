@@ -5,23 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create new Classroom</title>
+    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/styles/navAndTabs.css">
 </head>
 <body>
-    <h1>Create New Classroom</h1>
-    <div class="showOrHide">
-        <a href="/homepage">Classroom Galeria</a>
-        <br>
-        <a href="/logout">Logout</a>
-        <br>
+    <div class="container-fluid">
+        
+        <div style="background-color: indigo;" class="showOrHide fw-bolder pt-1 mb-2 border-bottom border-dark">
+            <h1 class="text-center text-warning border-bottom border-light pb-2">+Create New Classroom</h1>
+            <div class="menu ms-3 d-flex justify-content-between">
+                <a href="/homepage" class=" text-decoration-none text-white">Classroom Galeria</a>
+               
+    
+                <div class="me-3">
+                    <a href="/logout" class=" text-decoration-none text-light">Logout</a>
+                  
+                </div>
+            </div>
+        </div>
     </div>
+   
     <form action="/createNewClassroom" method="post">
         <label>
             Class Name:
             <input type="text" name="className">
         </label>
         <br>
-        <span>
-            Class Days:
+        <span class="d-flex">
+            <span class="me-4">
+                Class Days:
+            </span>
             <input type="checkbox" name="classDays" value="monday">
             Monday
             <input type="checkbox" name="classDays" value="tuesday">
@@ -46,5 +59,6 @@
         <br>
         <input type="submit">
     </form>
+    <!-- <script src="/public/script/menuHamburger.js"></script> -->
 </body>
 </html>
