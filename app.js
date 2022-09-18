@@ -42,15 +42,9 @@ app.get('/homepage', protectRoute, async(req, res)=>{
     // Email from payload of JWT
     const InstructorEmailFromPayLoadOfJWT = req.user.instructor.email
     console.log(InstructorEmailFromPayLoadOfJWT)
-                // Read operations
-    // QUERIES I DO NOT NEED FOR NOW!!!
-    // const getStudents = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'students')
-    // const getAttendance = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'attendances')
     const getClassrooms = await getInstructor(InstructorEmailFromPayLoadOfJWT, 'classrooms')
-    // Accessing data from database
     const instructorName = getClassrooms.instructorName
     const className = getClassrooms.classrooms
-    console.log("className: "+className)
     
     res.render('homepage', { className,instructorName })
 })
@@ -130,7 +124,6 @@ app.post('/createNewClassroom', protectRoute, async (req, res)=>{
     const classNameFromUI = req.body.className
     const classDaysFromUI = req.body.classDays
     const numberOfWeeksFromUI = req.body.numberOfWeeks
-    // Email from payload of JWT
     const InstructorEmailFromPayLoadOfJWT = req.user.instructor.email
     // Persisting to db
     const SavedClassroom = await saveToClassroom(classNameFromUI,classDaysFromUI,numberOfWeeksFromUI)
@@ -138,12 +131,9 @@ app.post('/createNewClassroom', protectRoute, async (req, res)=>{
     option = {classrooms: classroomId}
     // Updating to Instructor collection
     findInstructorAndUpdate(InstructorEmailFromPayLoadOfJWT, option)
-    // ***Not updating classrooms in attenndance collection***//
-    // Updating to Attendance collection
-    findAttendanceAndUpdate(classNameFromUI, option)
 
     // to be more efficient use res.render with cookies to the pass the className
-    res.redirect('homepage')
+    res.redirect('/homepage')
 })
 app.post('/insertModule', protectRoute, async (req, res)=>{
     const weekNoFromUI = req.body.wkNo
@@ -180,7 +170,8 @@ app.post('/markAttendance', protectRoute, async (req, res)=>{
     findStudentAndUpdate(classNameFromUI, option)
     // className
     const className = classNameFromUI
-    res.render('dashboard', {className})
+    res.redirect(`/dashboard/${className}`)
+
 })
 app.post('/insertNewStudent', protectRoute, async (req, res)=>{
     const studentNameFromUI = req.body.studentName
@@ -203,7 +194,8 @@ app.post('/insertNewStudent', protectRoute, async (req, res)=>{
     findClassroomAndUpdate(classNameFromUI,option)
     // className
     const className = classNameFromUI
-    res.render('dashboard', {className})
+    res.redirect(`/dashboard/${className}`)
+
 })
 
 // jwt
@@ -317,17 +309,6 @@ const saveToStudent = async function(studentName,studentEmail,parentEmail,parent
     })
     console.log("\n>>Created Student:\n", Student)
     return Student
-}
-
-// Read only operation
-function getOnlyInstructors(instructorEmail){
-    return db.Instructors.findOne({instructorEmail})
-    .then((instructor)=>{
-        // console.log("result: "+instructor)
-        return instructor
-    }).catch((err)=>{
-        console.log("err: "+err)
-    })
 }
 
 // Read and Update Operation
