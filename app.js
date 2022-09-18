@@ -136,9 +136,9 @@ app.post('/createNewClassroom', protectRoute, async (req, res)=>{
     res.redirect('/homepage')
 })
 app.post('/insertModule', protectRoute, async (req, res)=>{
-    const weekNoFromUI = req.body.wkNo
-    const dayOfModuleFromUI = req.body.dOM
-    const titleOfModuleFromUI = req.body.tOM
+    const weekNoFromUI = req.body.weekNo
+    const dayOfModuleFromUI = req.body.dayOfModule
+    const titleOfModuleFromUI = req.body.titleOfModule
     const classNameFromUI = req.body.className
     const className = classNameFromUI
 
@@ -471,12 +471,8 @@ const getDataForDashboard = async function (email, className){
     const checkedNameFromDB = attendance.map(e=>e.checkedName)
     const cN = checkedNameFromDB.join()
     const checkedName = cN.split(',')
-    console.log('checkedName: ', checkedName)
     const status = attendance.map(e=>e.status)
-    console.log('status: ', status)
     const dayOfAttendance = attendance.map(e=>e.dayOfAttendance)
-    console.log('dayOfAttendance: ', dayOfAttendance)
-    console.log(studentName,'studentName')
 
     const data = {
         // Module Register

@@ -139,12 +139,10 @@
 
                 <span>
                     Students:
-                    <input type="checkbox" name="checkedName" value="Michael">
-                    Michael
-                    <input type="checkbox" name="checkedName" value="Chisom">
-                    Chisom
-                    <input type="checkbox" name="checkedName" value="Wilson">
-                    Wilson
+                    <% for( let i = 0; i < studentName.length; i++ ) { %>
+                        <input type="checkbox" name="checkedName" value="<%= studentName[i] %>">
+                        <%= studentName[i] %>
+                    <% } %>
                 </span>
                 <br>
                 <label>
@@ -158,13 +156,9 @@
                 <label>
                     Please select the Day of Attendance:
                     <select name="dayOfAttendance">
-                        <option value="monday">Monday</option>
-                        <option value="tuesday">Tuesday</option>
-                        <option value="wednesday">Wednesday</option>
-                        <option value="thursday">Thursday</option>
-                        <option value="friday">Friday</option>
-                        <option value="saturday">Saturday</option>
-                        <option value="sunday">Sunday</option>
+                        <% for( let i = 0; i < classDays.length; i++ ) { %>
+                            <option value="<%= i+1 %> "> <%= classDays[i] %>  </option>
+                        <% } %>
                     </select>
                 </label>
                 <br>
