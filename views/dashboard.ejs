@@ -19,19 +19,26 @@
     </style>
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <div class="showOrHide">
-        <p>Welcome  <%= instructorName %> </p>
-        <a href="/homepage">Classroom Galeria</a>
-        <br>
-        <a href="/createNewClassroom">New Classroom</a>
-        <br>
-        <a href="/logout">Logout</a>
-        <br>
-    </div>
-    <br>
     <!-- ClassName: -->
-    <h1>Class name: <%= className %></h1>
+    <h1 class="bg-primary text-light p-4 text-center">Dashboard- Classroom: <span class="text-warning"> <%= className %> </span></h1>
+    
+    <div class="showOrHide fw-bolder pt-1 mb-2 border-bottom border-dark">
+        <div class="menu ms-3 d-flex justify-content-between">
+            <a href="/homepage" class=" text-decoration-none">Classroom Galeria</a>
+           
+
+            <div class="side d-flex me-1 gap-3">
+                <p class="ms-3 text-secondary ">Welcome  <%= instructorName %> </p>
+
+                <span class="menu_btn me-1">menu</span>
+
+                <div class="drop_menu">
+                    <a href="/createNewClassroom" class=" text-decoration-none">New Classroom</a>
+                    <a href="/logout" class=" text-decoration-none">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Navs and Tabs -->
     <nav>
@@ -48,7 +55,7 @@
             <a href="#tab4" class="btn btn-primary tab-toggler">Attendance Register</a>
         </div>
         <div class="nav-5">
-            <a href="#tab5" class="btn btn-primary tab-toggler">Insert New Student</a>
+            <a href="#tab5" class="btn btn-primary tab-toggler"> +New Student</a>
         </div>
         <div class="nav-6">
             <a href="#tab6" class="btn btn-primary tab-toggler">Students Register</a>
@@ -73,7 +80,7 @@
                     Please select the Day of Module
                     <select name="dayOfModule">
                         <% for( let i = 0; i < classDays.length; i++ ) { %>
-                            <option value="<%= i+1 %> "> <%= classDays[i] %>  </option>
+                            <option value="<%= classDays[i] %> "> <%= classDays[i] %>  </option>
                         <% } %>
                     </select>
                 </label>
@@ -117,7 +124,7 @@
                         <%if(i===0){%>
                             <td>week <%= index +1 %>  </td>
                         <%}%>
-                        <% if (weekNo[i] == index+1 ) { %>
+                        <% if (weeksNo[i] == index+1 ) { %>
                             <td>
                                 <%=titleOfModule[i]%> 
                              
@@ -166,7 +173,7 @@
                     Please select the Day of Attendance:
                     <select name="dayOfAttendance">
                         <% for( let i = 0; i < classDays.length; i++ ) { %>
-                            <option value="<%= i+1 %> "> <%= classDays[i] %>  </option>
+                            <option value="<%= classDays[i] %> "> <%= classDays[i] %>  </option>
                         <% } %>
                     </select>
                 </label>
@@ -205,10 +212,13 @@
                             <td><%= studentName[k] %> </td>
                             
                             <% for( let l = 0; l < classDays.length; l++ ) { %>
-                                <% if ( weekNo[l] == i+1 ) { %>
-                                    <td><%= status[l]  %></td>
+                                    <% if (attendanceWeekNo[i]== i+1) { %>
+                                       
+                                            <td><%= classDays[l]  %></td>
+                                        <% } %>
+                                  
+                                    
                                  
-                                <% } %>
                                
                             <% } %>
                         </tr>
@@ -221,7 +231,7 @@
     <!-- Insert New Student Tab -->
     <div>
         <div id="tab5" class="tabs hide">
-            <header>Insert New Student</header>
+            <header>Add New Student</header>
             <form action="/insertNewStudent" method="post">
                 <label>
                     Student Name:
@@ -343,5 +353,6 @@
     
     <script src="/public/script/navAndTabs.js"></script>
     <script src="/public/script/handleForm.js"></script>
+    <script src="/public/script/menuHamburger.js"></script>
 </body>
 </html>

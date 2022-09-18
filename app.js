@@ -450,7 +450,7 @@ const getDataForDashboard = async function (email, className){
     const w = weeksDoc.weeks
     const dayOfModule = w.map(e=> e.dayOfModule)
     const titleOfModule = w.map(e=> e.titleOfModule)
-    const weekNo = w.map(e=> e.weekNo)
+    const weeksNo = w.map(e=> e.weekNo)
 
     // Read operations for Student Register
     const getStudents = await getInstructor(email, 'students')
@@ -465,11 +465,12 @@ const getDataForDashboard = async function (email, className){
     const gender = student.map(e=>e.gender)
     const dob = student.map(e=>e.dob)
 
-                    // Read operations for Student Register
+                    // Read operations for Attendance Register
     const getAttendances = await getInstructor(email, 'attendances')
     const attendances = getAttendances.attendances
     const attendance = attendances.filter(e=>{if(e.className === className){return e}})
 
+    const attendanceWeekNo = attendance.map(e=> e.weekNo)
     const checkedNameFromDB = attendance.map(e=>e.checkedName)
     const cN = checkedNameFromDB.join()
     const checkedName = cN.split(',')
@@ -478,11 +479,11 @@ const getDataForDashboard = async function (email, className){
 
     const data = {
         // Module Register
-        instructorName,className,classDays,numberOfWeeks,dayOfModule,titleOfModule,weekNo,
+        instructorName,className,classDays,numberOfWeeks,dayOfModule,titleOfModule,weeksNo,
         // Student Register
         studentName,studentEmail,parentEmail,parentPhoneNo,studentPhoneNo,gender,dob,
         // Attendance Register
-        checkedName,status,dayOfAttendance
+        attendanceWeekNo,checkedName,status,dayOfAttendance
     }
 
     return data
