@@ -1,3 +1,6 @@
+body{
+    background-color: lavender;
+}
 nav{
     display: flex;
     gap: 10px;
@@ -13,6 +16,7 @@ nav a{
     height:400px;
     margin: 1%;
     overflow: scroll;
+    background-color: #65a2ff;
     border: 3px solid rgb(115, 115, 196);
 }
 .show{
@@ -143,7 +147,7 @@ main{
         width: 60%;
         padding-top: 10px;
         position: absolute;
-        top: 135px;
+        top: 0px;
         display:none;
         flex-direction: column;
         height:100px;

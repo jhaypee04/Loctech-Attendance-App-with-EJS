@@ -5,28 +5,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classes Galeria</title>
+    <link rel="stylesheet" href="/public/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/styles/navAndTabs.css">
 </head>
-<body>
-    <h1>Classroom Galery</h1>
-    <div class="showOrHide">
-        <p>Welcome <%= instructorName %>  </p>
-        <a href="/homepage">Classroom Galeria</a>
-        <br>
-        <a href="/createNewClassroom">New Classroom</a>
-        <br>
-        <a href="/logout">Logout</a>
-        <br>
+<body class=" bg-primary">
+    <div class="container-fluid">
+        
+        <div style="background-color: indigo;" class="showOrHide fw-bolder pt-1 mb-2 border-bottom border-dark">
+            <h1 class="text-center text-warning border-bottom border-light pb-2">Classroom Galery</h1>
+            <div class="menu ms-3 d-flex justify-content-between">
+                <a href="/" class=" text-decoration-none text-white">Home</a>
+               
+    
+                <div class="side d-flex me-1 gap-3">
+                    <p class="ms-3 text-white ">Welcome  <%= instructorName %> </p>
+    
+                    <span class="menu_btn me-1 text-white">menu</span>
+    
+                    <div class="drop_menu" style="z-index: 10;">
+                        <a href="/createNewClassroom" class=" text-decoration-none text-light">New Classroom</a>
+                        <a href="/logout" class=" text-decoration-none text-light">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <% className.forEach(element => { %>
+                <div class="col-sm-3">
+                    <a href="<%= `/dashboard/${element.className}` %>" class="text-decoration-none">
+                        <div class="card bg-primary">
+                            <!-- params -->
+                            <div class="card-body bg-dark text-light">
+                                <h5 class="card-title text-warning">
+                                    <%= element.className %> 
+                                </h5>
+                                <hr>
+                                <p class="card-text">
+                                    Class Days:
+                                </p>
+                                <p class="card-text">
+                                    Number of Weeks:
+                                </p>
+                                <p class="card-text">
+                                    Number of Students:
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
     </div>
-    <br>
-    <div class="container">
-        <% className.forEach(element => { %>
-         <div class="cards">
-            <!-- params -->
-            <a href="<%= `/dashboard/${element.className}` %>">
-                <%= element.className %> 
-            </a>
-         </div>
-        <% }) %>
-    </div>
+    
+    <script src="/public/script/menuHamburger.js"></script>
 </body>
 </html>
