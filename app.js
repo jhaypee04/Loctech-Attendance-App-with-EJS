@@ -156,12 +156,13 @@ app.post('/insertModule', protectRoute, async (req, res)=>{
 app.post('/markAttendance', protectRoute, async (req, res)=>{
     const checkedNameFromUI = req.body.checkedName
     const statusFromUI = req.body.status
+    const weekNo = req.body.weekNo
     const dayOfAttendanceFromUI = req.body.dayOfAttendance
     const classNameFromUI = req.body.className
     // Email from payload of JWT
     const InstructorEmailFromPayLoadOfJWT = req.user.instructor.email
     // Persisting to db
-    const SavedAttendance = await saveToAttendance(checkedNameFromUI,statusFromUI,dayOfAttendanceFromUI,classNameFromUI)
+    const SavedAttendance = await saveToAttendance(checkedNameFromUI,statusFromUI,weekNo,dayOfAttendanceFromUI,classNameFromUI)
     const attendanceId = SavedAttendance._id
     option = {attendances: attendanceId}
     // Updating to Instructor collection
@@ -286,10 +287,11 @@ const saveToWeek = async function(weekNo,dayOfModule,titleOfModule,className){
     console.log("\n>>Created Week:\n", Week)
     return Week
 }
-const saveToAttendance = async function(checkedName,status,dayOfAttendance,className){
+const saveToAttendance = async function(checkedName,status,weekNo,dayOfAttendance,className){
     var Attendance = await createAttendance({
         checkedName,
         status,
+        weekNo,
         dayOfAttendance,
         className
     })

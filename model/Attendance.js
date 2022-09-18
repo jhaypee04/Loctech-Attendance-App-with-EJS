@@ -3,6 +3,10 @@ const mongoose = require('mongoose')
 const Attendance = mongoose.model(
     'attendance',
     new mongoose.Schema({
+        weekNo: {
+            type: Number,
+            required: true
+        },
         checkedName: {
             type: Array,
             required: true

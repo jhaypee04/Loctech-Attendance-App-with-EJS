@@ -154,6 +154,15 @@
                 </label>
                 <br>
                 <label>
+                    Please select a week
+                    <select name="weekNo">
+                        <% for( let i = 0; i < numberOfWeeks; i++ ) { %>
+                            <option value= "<%= i+1 %>" >Week  <%= i+1 %></option>
+                        <% } %>
+                    </select>
+                </label>
+                <br>
+                <label>
                     Please select the Day of Attendance:
                     <select name="dayOfAttendance">
                         <% for( let i = 0; i < classDays.length; i++ ) { %>
@@ -196,8 +205,10 @@
                             <td><%= studentName[k] %> </td>
                             
                             <% for( let l = 0; l < classDays.length; l++ ) { %>
-                                
-                                    <td><%= status[k]  %></td>
+                                <% if ( weekNo[l] == i+1 ) { %>
+                                    <td><%= status[l]  %></td>
+                                 
+                                <% } %>
                                
                             <% } %>
                         </tr>
